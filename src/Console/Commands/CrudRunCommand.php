@@ -3,33 +3,42 @@
 namespace Fuad\Reactor\Console\Commands;
 
 use Illuminate\Console\Command;
+use Fuad\Reactor\Generators\ModelGenerator;
+use Fuad\Reactor\Generators\ControllerGenerator;
+use Fuad\Reactor\Generators\ResourceGenerator;
+use Fuad\Reactor\Generators\MigrationGenerator;
 
 class CrudRunCommand extends Command
 {
     protected $signature = 'crud:run {definitionClass}';
-    protected $description = 'Generate Model, Migration, Controller, and Resource from Object definition';
+    protected $description = 'Generate full CRUD from object definition schema';
 
     public function handle(): int
     {
         $definitionClass = $this->argument('definitionClass');
 
         if (!class_exists($definitionClass)) {
-            $this->error("Definition class {$definitionClass} not found!");
+            $this->error("Schema class [{$definitionClass}] does not exist!");
             return Command::FAILURE;
         }
 
-        /** @var \Fuad\Reactor\Definitions\TableDefinition $schema */
         $schema = (new $definitionClass())->define();
 
-        $this->info("Generating CRUD for: {$schema->modelName}...");
+        $this->info("Building CRUD for {$schema->modelName}...");
 
-        // يمكنك هنا استدعاء مولدات الملفات (Generators)
-        // 1. Generate Migration
-        // 2. Generate Model
-        // 3. Generate Controller
-        // 4. Generate Resource
+        ModelGenerator::generate($schema);
+        $this->comment(" - Model generated.");
 
-        $this->info("CRUD generated successfully!");
+        ControllerGenerator::generate($schema);
+        $this->comment(" - Controller generated.");
+
+        ResourceGenerator::generate($schema);
+        $this->comment(" - API Resource generated.");
+
+        MigrationGenerator::generate($schema);
+        $this->comment(" - Migration generated.");
+
+        $this->info("CRUD generated successfully with Reactor!");
         return Command::SUCCESS;
     }
 }

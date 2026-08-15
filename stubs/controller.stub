@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\{{modelName}};
+use App\Http\Resources\{{modelName}}Resource;
+use Illuminate\Http\Request;
+
+class {{modelName}}Controller extends Controller
+{
+    public function index()
+    {
+        return {{modelName}}Resource::collection({{modelName}}::all());
+    }
+
+    public function store(Request $request)
+    {
+        $item = {{modelName}}::create($request->all());
+        return new {{modelName}}Resource($item);
+    }
+
+    public function show({{modelName}} ${{modelNameLower}})
+    {
+        return new {{modelName}}Resource(${{modelNameLower}});
+    }
+
+    public function update(Request $request, {{modelName}} ${{modelNameLower}})
+    {
+        ${{modelNameLower}}->update($request->all());
+        return new {{modelName}}Resource(${{modelNameLower}});
+    }
+
+    public function destroy({{modelName}} ${{modelNameLower}})
+    {
+        ${{modelNameLower}}->delete();
+        return response()->noContent();
+    }
+}
