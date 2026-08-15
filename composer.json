@@ -1,0 +1,29 @@
+{
+    "name": "fuad/fuad-reactor",
+    "description": "An object-based CRUD generator for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fuad",
+            "email": "fuad.sale7@gmail.com"
+        }
+    ],
+    "version": "dev-main",
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^10.0|^11.0|^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fuad\\Reactor\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fuad\\Reactor\\ReactorServiceProvider"
+            ]
+        }
+    }
+}
