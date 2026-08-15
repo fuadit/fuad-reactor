@@ -3,7 +3,8 @@
 namespace Fuad\Reactor;
 
 use Illuminate\Support\ServiceProvider;
-use Fuad\Reactor\Console\Commands\CrudRunCommand;
+use Fuad\Reactor\Console\Commands\ReactorCrudCommand;
+use Fuad\Reactor\Console\Commands\ReactorAuthCommand;
 
 class ReactorServiceProvider extends ServiceProvider
 {
@@ -11,7 +12,8 @@ class ReactorServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                CrudRunCommand::class,
+                ReactorCrudCommand::class,
+                ReactorAuthCommand::class,
             ]);
 
             // نشر الـ Stubs إذا أردت السماح للمستخدم بالتعديل عليها
