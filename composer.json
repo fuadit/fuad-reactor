@@ -9,7 +9,6 @@
             "email": "fuad.sale7@gmail.com"
         }
     ],
-    "version": "dev-main",
     "require": {
         "php": "^8.2",
         "illuminate/support": "^10.0|^11.0|^12.0"
